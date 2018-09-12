@@ -2,6 +2,16 @@
 package lesson1.task1
 
 import kotlin.math.*
+const val seconds_in_minute = 60
+const val minutes_in_hour = 60
+const val seconds_in_hour = 3600
+const val sagenes_in_arshins = 3
+const val arshins_in_vershoks = 16
+const val sagenes_in_vershoks = 48
+const val centimeters_in_vershoks = 4.445
+const val radians_in_grad = (PI / 180)
+const val radians_in_minutes = (PI / 10800)
+const val radians_in_seconds = (PI / 648000)
 
 /**
  * Пример
@@ -59,7 +69,7 @@ fun main(args: Array<String>) {
  * Рассчитать время в секундах, прошедшее с начала суток (30035 в данном случае).
  */
 fun seconds(hours: Int, minutes: Int, seconds: Int): Int {
-    return (hours * 3600 + minutes * 60 + seconds)
+    return (hours * seconds_in_hour + minutes * seconds_in_minute + seconds)
 }
 
 /**
@@ -70,8 +80,8 @@ fun seconds(hours: Int, minutes: Int, seconds: Int): Int {
  * 1 сажень = 3 аршина = 48 вершков, 1 вершок = 4.445 см.
  */
 fun lengthInMeters(sagenes: Int, arshins: Int, vershoks: Int): Double{
-    val z = (sagenes * 48 + arshins * 16 + vershoks )
-    return ((z * 4.445) / 100)
+    val z = (sagenes * sagenes_in_vershoks + arshins * arshins_in_vershoks + vershoks)
+    return ((z * centimeters_in_vershoks) / 100)
 }
 
 /**
@@ -81,7 +91,7 @@ fun lengthInMeters(sagenes: Int, arshins: Int, vershoks: Int): Double{
  * Вывести значение того же угла в радианах (например, 0.63256).
  */
 fun angleInRadian(grad: Int, min: Int, sec: Int): Double {
-    return ((grad + min / 60.0 + sec / 3600.0) / 180.0 * PI)
+    return (grad * radians_in_grad + min * radians_in_minutes + sec * radians_in_seconds)
 }
 
 /**
@@ -114,7 +124,7 @@ fun thirdDigit(number: Int): Int {
  * Определите время поезда в пути в минутах (в данном случае 216).
  */
 fun travelMinutes(hoursDepart: Int, minutesDepart: Int, hoursArrive: Int, minutesArrive: Int): Int {
-    return ((hoursArrive * 60 + minutesArrive) - (hoursDepart * 60 + minutesDepart))
+    return ((hoursArrive * minutes_in_hour + minutesArrive) - (hoursDepart * minutes_in_hour + minutesDepart))
 }
 
 /**
@@ -125,7 +135,7 @@ fun travelMinutes(hoursDepart: Int, minutesDepart: Int, hoursArrive: Int, minute
  * Например, 100 рублей под 10% годовых превратятся в 133.1 рубля
  */
 fun accountInThreeYears(initial: Int, percent: Int): Double{
-    return (sqr(1 + percent/100.0) * (1 + percent/100.0) * initial)
+    return (sqr(1 + percent / 100.0) * (1 + percent / 100.0) * initial)
 }
 
 /**
