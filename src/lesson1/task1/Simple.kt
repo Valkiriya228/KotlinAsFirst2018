@@ -1,7 +1,9 @@
 @file:Suppress("UNUSED_PARAMETER")
+
 package lesson1.task1
 
 import kotlin.math.*
+
 const val seconds_in_minute = 60
 const val minutes_in_hour = 60
 const val seconds_in_hour = 3600
@@ -69,7 +71,10 @@ fun main(args: Array<String>) {
  * Рассчитать время в секундах, прошедшее с начала суток (30035 в данном случае).
  */
 fun seconds(hours: Int, minutes: Int, seconds: Int): Int {
-    return (hours * seconds_in_hour + minutes * seconds_in_minute + seconds)
+    val a = hours * seconds_in_hour
+    val b = minutes * seconds_in_minute
+    val c = a + b
+    return c + seconds
 }
 
 /**
@@ -79,7 +84,7 @@ fun seconds(hours: Int, minutes: Int, seconds: Int): Int {
  * Определить длину того же отрезка в метрах (в данном случае 18.98).
  * 1 сажень = 3 аршина = 48 вершков, 1 вершок = 4.445 см.
  */
-fun lengthInMeters(sagenes: Int, arshins: Int, vershoks: Int): Double{
+fun lengthInMeters(sagenes: Int, arshins: Int, vershoks: Int): Double {
     val z = (sagenes * sagenes_in_vershoks + arshins * arshins_in_vershoks + vershoks)
     return ((z * centimeters_in_vershoks) / 100)
 }
@@ -91,7 +96,10 @@ fun lengthInMeters(sagenes: Int, arshins: Int, vershoks: Int): Double{
  * Вывести значение того же угла в радианах (например, 0.63256).
  */
 fun angleInRadian(grad: Int, min: Int, sec: Int): Double {
-    return (grad * radians_in_grad + min * radians_in_minutes + sec * radians_in_seconds)
+    val w = grad * radians_in_grad
+    val e = min * radians_in_minutes
+    val p = sec * radians_in_seconds
+    return (w + e + p)
 }
 
 /**
@@ -100,7 +108,7 @@ fun angleInRadian(grad: Int, min: Int, sec: Int): Double {
  * Найти длину отрезка, соединяющего точки на плоскости с координатами (x1, y1) и (x2, y2).
  * Например, расстояние между (3, 0) и (0, 4) равно 5
  */
-fun trackLength(x1: Double, y1: Double, x2: Double, y2: Double): Double{
+fun trackLength(x1: Double, y1: Double, x2: Double, y2: Double): Double {
     val z = sqr(x1 - x2)
     val u = sqr(y1 - y2)
     return (sqrt(z + u))
@@ -116,6 +124,7 @@ fun thirdDigit(number: Int): Int {
     val z = number / 100
     return (z % 10)
 }
+
 /**
  * Простая
  *
@@ -124,7 +133,9 @@ fun thirdDigit(number: Int): Int {
  * Определите время поезда в пути в минутах (в данном случае 216).
  */
 fun travelMinutes(hoursDepart: Int, minutesDepart: Int, hoursArrive: Int, minutesArrive: Int): Int {
-    return ((hoursArrive * minutes_in_hour + minutesArrive) - (hoursDepart * minutes_in_hour + minutesDepart))
+    val x1 = (hoursArrive * minutes_in_hour) + minutesArrive
+    val x2 = (hoursDepart * minutes_in_hour) + minutesDepart
+    return x1 - x2
 }
 
 /**
@@ -134,8 +145,10 @@ fun travelMinutes(hoursDepart: Int, minutesDepart: Int, hoursArrive: Int, minute
  * Сколько денег будет на счету через 3 года (с учётом сложных процентов)?
  * Например, 100 рублей под 10% годовых превратятся в 133.1 рубля
  */
-fun accountInThreeYears(initial: Int, percent: Int): Double{
-    return (sqr(1 + percent / 100.0) * (1 + percent / 100.0) * initial)
+fun accountInThreeYears(initial: Int, percent: Int): Double {
+    val p = 1 + percent / 100.0
+    val s = sqr(p) * p
+    return s * initial
 }
 
 /**
