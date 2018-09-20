@@ -2,6 +2,7 @@
 
 package lesson1.task1
 
+import com.sun.java.accessibility.util.GUIInitializedMulticaster.add
 import kotlin.math.*
 
 const val seconds_in_minute = 60
@@ -70,12 +71,8 @@ fun main(args: Array<String>) {
  * Пользователь задает время в часах, минутах и секундах, например, 8:20:35.
  * Рассчитать время в секундах, прошедшее с начала суток (30035 в данном случае).
  */
-fun seconds(hours: Int, minutes: Int, seconds: Int): Int {
-    val a = hours * seconds_in_hour
-    val b = minutes * seconds_in_minute
-    val c = a + b
-    return c + seconds
-}
+fun seconds(hours: Int, minutes: Int, seconds: Int): Int = hours * seconds_in_hour +  minutes * seconds_in_minute + seconds
+
 
 /**
  * Тривиальная
@@ -132,12 +129,7 @@ fun thirdDigit(number: Int): Int {
  * прибыл на станцию назначения в h2 часов m2 минут того же дня (например в 13:01).
  * Определите время поезда в пути в минутах (в данном случае 216).
  */
-fun travelMinutes(hoursDepart: Int, minutesDepart: Int, hoursArrive: Int, minutesArrive: Int): Int {
-    val x1 = (hoursArrive * minutes_in_hour) + minutesArrive
-    val x2 = (hoursDepart * minutes_in_hour) + minutesDepart
-    return x1 - x2
-}
-
+fun travelMinutes(hoursDepart: Int, minutesDepart: Int, hoursArrive: Int, minutesArrive: Int): Int = (hoursArrive * minutes_in_hour + minutesArrive) - (hoursDepart * minutes_in_hour + minutesDepart)
 /**
  * Простая
  *
@@ -145,11 +137,7 @@ fun travelMinutes(hoursDepart: Int, minutesDepart: Int, hoursArrive: Int, minute
  * Сколько денег будет на счету через 3 года (с учётом сложных процентов)?
  * Например, 100 рублей под 10% годовых превратятся в 133.1 рубля
  */
-fun accountInThreeYears(initial: Int, percent: Int): Double {
-    val p = 1 + percent / 100.0
-    val s = sqr(p) * p
-    return s * initial
-}
+fun accountInThreeYears(initial: Int, percent: Int): Double = sqr(1 + percent / 100.0) * (1 + percent / 100.0) * initial
 
 /**
  * Простая
