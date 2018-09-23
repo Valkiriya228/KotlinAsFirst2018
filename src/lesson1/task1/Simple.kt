@@ -5,16 +5,16 @@ package lesson1.task1
 import com.sun.java.accessibility.util.GUIInitializedMulticaster.add
 import kotlin.math.*
 
-const val seconds_in_minute = 60
-const val minutes_in_hour = 60
-const val seconds_in_hour = 3600
-const val sagenes_in_arshins = 3
-const val arshins_in_vershoks = 16
-const val sagenes_in_vershoks = 48
-const val centimeters_in_vershoks = 4.445
-const val radians_in_grad = (PI / 180)
-const val radians_in_minutes = (PI / 10800)
-const val radians_in_seconds = (PI / 648000)
+const val SECONDS_IN_MINUTE = 60
+const val MINUTES_IN_HOUR = 60
+const val SECONDS_IN_HOUR = 3600
+const val SAGENES_IN_ARSHINS = 3
+const val ARSHINS_IN_VERSHOKS = 16
+const val SAGENES_IN_VERSHOKS = 48
+const val CENTIMETERS_IN_VERSHOKS = 4.445
+const val RADIANS_IN_GRAD = (PI / 180)
+const val RADIANS_IN_MINUTES = (PI / 10800)
+const val RADIANS_IN_SECONDS = (PI / 648000)
 
 /**
  * Пример
@@ -71,7 +71,7 @@ fun main(args: Array<String>) {
  * Пользователь задает время в часах, минутах и секундах, например, 8:20:35.
  * Рассчитать время в секундах, прошедшее с начала суток (30035 в данном случае).
  */
-fun seconds(hours: Int, minutes: Int, seconds: Int): Int = hours * seconds_in_hour +  minutes * seconds_in_minute + seconds
+fun seconds(hours: Int, minutes: Int, seconds: Int): Int = hours * SECONDS_IN_HOUR + minutes * SECONDS_IN_MINUTE + seconds
 
 
 /**
@@ -82,8 +82,8 @@ fun seconds(hours: Int, minutes: Int, seconds: Int): Int = hours * seconds_in_ho
  * 1 сажень = 3 аршина = 48 вершков, 1 вершок = 4.445 см.
  */
 fun lengthInMeters(sagenes: Int, arshins: Int, vershoks: Int): Double {
-    val z = (sagenes * sagenes_in_vershoks + arshins * arshins_in_vershoks + vershoks)
-    return ((z * centimeters_in_vershoks) / 100)
+    val z = (sagenes * SAGENES_IN_VERSHOKS + arshins * ARSHINS_IN_VERSHOKS + vershoks)
+    return ((z * CENTIMETERS_IN_VERSHOKS) / 100)
 }
 
 /**
@@ -93,9 +93,9 @@ fun lengthInMeters(sagenes: Int, arshins: Int, vershoks: Int): Double {
  * Вывести значение того же угла в радианах (например, 0.63256).
  */
 fun angleInRadian(grad: Int, min: Int, sec: Int): Double {
-    val w = grad * radians_in_grad
-    val e = min * radians_in_minutes
-    val p = sec * radians_in_seconds
+    val w = grad * RADIANS_IN_GRAD
+    val e = min * RADIANS_IN_MINUTES
+    val p = sec * RADIANS_IN_SECONDS
     return (w + e + p)
 }
 
@@ -129,7 +129,7 @@ fun thirdDigit(number: Int): Int {
  * прибыл на станцию назначения в h2 часов m2 минут того же дня (например в 13:01).
  * Определите время поезда в пути в минутах (в данном случае 216).
  */
-fun travelMinutes(hoursDepart: Int, minutesDepart: Int, hoursArrive: Int, minutesArrive: Int): Int = (hoursArrive * minutes_in_hour + minutesArrive) - (hoursDepart * minutes_in_hour + minutesDepart)
+fun travelMinutes(hoursDepart: Int, minutesDepart: Int, hoursArrive: Int, minutesArrive: Int): Int = (hoursArrive * MINUTES_IN_HOUR + minutesArrive) - (hoursDepart * MINUTES_IN_HOUR + minutesDepart)
 /**
  * Простая
  *
