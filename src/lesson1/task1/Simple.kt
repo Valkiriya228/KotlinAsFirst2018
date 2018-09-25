@@ -71,8 +71,8 @@ fun main(args: Array<String>) {
  * Пользователь задает время в часах, минутах и секундах, например, 8:20:35.
  * Рассчитать время в секундах, прошедшее с начала суток (30035 в данном случае).
  */
-fun seconds(hours: Int, minutes: Int, seconds: Int): Int = hours * SECONDS_IN_HOUR + minutes * SECONDS_IN_MINUTE +
-        seconds
+fun seconds(hours: Int, minutes: Int, seconds: Int): Int =
+        hours * SECONDS_IN_HOUR + minutes * SECONDS_IN_MINUTE + seconds
 
 
 /**
@@ -130,8 +130,8 @@ fun thirdDigit(number: Int): Int {
  * прибыл на станцию назначения в h2 часов m2 минут того же дня (например в 13:01).
  * Определите время поезда в пути в минутах (в данном случае 216).
  */
-fun travelMinutes(hoursDepart: Int, minutesDepart: Int, hoursArrive: Int, minutesArrive: Int): Int = (hoursArrive *
-        MINUTES_IN_HOUR + minutesArrive) - (hoursDepart * MINUTES_IN_HOUR + minutesDepart)
+fun travelMinutes(hoursDepart: Int, minutesDepart: Int, hoursArrive: Int, minutesArrive: Int): Int =
+        (hoursArrive * MINUTES_IN_HOUR + minutesArrive) - (hoursDepart * MINUTES_IN_HOUR + minutesDepart)
 /**
  * Простая
  *
@@ -139,8 +139,8 @@ fun travelMinutes(hoursDepart: Int, minutesDepart: Int, hoursArrive: Int, minute
  * Сколько денег будет на счету через 3 года (с учётом сложных процентов)?
  * Например, 100 рублей под 10% годовых превратятся в 133.1 рубля
  */
-fun accountInThreeYears(initial: Int, percent: Int): Double = sqr(1 + percent / 100.0) *
-        (1 + percent / 100.0) * initial
+fun accountInThreeYears(initial: Int, percent: Int): Double =
+        sqr(1 + percent / 100.0) * (1 + percent / 100.0) * initial
 
 /**
  * Простая
