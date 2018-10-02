@@ -3,6 +3,7 @@
 package lesson1.task1
 
 import com.sun.java.accessibility.util.GUIInitializedMulticaster.add
+import java.lang.Math.pow
 import kotlin.math.*
 
 const val SECONDS_IN_MINUTE = 60
@@ -118,10 +119,8 @@ fun trackLength(x1: Double, y1: Double, x2: Double, y2: Double): Double {
  * Пользователь задает целое число, большее 100 (например, 3801).
  * Определить третью цифру справа в этом числе (в данном случае 8).
  */
-fun thirdDigit(number: Int): Int {
-    val z = number / 100
-    return (z % 10)
-}
+fun thirdDigit(number: Int): Int = ((number / 100) % 10)
+
 
 /**
  * Простая
@@ -140,7 +139,7 @@ fun travelMinutes(hoursDepart: Int, minutesDepart: Int, hoursArrive: Int, minute
  * Например, 100 рублей под 10% годовых превратятся в 133.1 рубля
  */
 fun accountInThreeYears(initial: Int, percent: Int): Double =
-        sqr(1 + percent / 100.0) * (1 + percent / 100.0) * initial
+        pow((1 + percent / 100.0), 3.0) * initial
 
 /**
  * Простая

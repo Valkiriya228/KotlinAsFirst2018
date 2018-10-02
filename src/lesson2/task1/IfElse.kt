@@ -5,6 +5,7 @@ import lesson1.task1.discriminant
 import lesson1.task1.sqr
 import kotlin.math.abs
 import kotlin.math.max
+import kotlin.math.min
 import kotlin.math.sqrt
 
 /**
@@ -87,11 +88,11 @@ fun timeForHalfWay(t1: Double, v1: Double,
     val s1 = t1 * v1
     val s2 = t2 * v2
     val s3 = t3 * v3
-    val s_half = (s1 + s2 + s3) / 2
+    val sHalf = (s1 + s2 + s3) / 2
     return when {
-        s_half <= s1 -> s_half / v1
-        s_half > s1 && s_half <= s1 + s2 -> t1 + (s_half - s1) / v2
-        else -> t1 + t2 + (s_half - s1 - s2) / v3
+        sHalf <= s1 -> sHalf / v1
+        sHalf > s1 && sHalf <= s1 + s2 -> t1 + (sHalf - s1) / v2
+        else -> t1 + t2 + (sHalf - s1 - s2) / v3
     }
 }
 
@@ -141,13 +142,16 @@ fun rookOrBishopThreatens(kingX: Int, kingY: Int,
  * прямоугольным (вернуть 1) или тупоугольным (вернуть 2).
  * Если такой треугольник не существует, вернуть -1.
  */
-fun triangleKind(a: Double, b: Double, c: Double): Int = when {
-    (a > b + c) || (b > a + c) || (c > a + b) -> -1
-    ((maxOf(a, b, c) == a) && (sqr(a) < sqr(b) + sqr(c))) || ((maxOf(a, b, c) == b) && (sqr(b) < sqr(a) + sqr(c))) ||
-            ((maxOf(a, b, c) == c) && (sqr(c) < sqr(a) + sqr(b))) -> 0
-    ((maxOf(a, b, c) == a) && (sqr(a) == sqr(b) + sqr(c))) || ((maxOf(a, b, c) == b) && (sqr(b) == sqr(a) + sqr(c))) ||
-            ((maxOf(a, b, c) == c) && (sqr(c) == sqr(a) + sqr(b))) -> 1
-    else -> 2
+fun triangleKind(a: Double, b: Double, c: Double): Int {
+    val cosb = (sqr(a) + sqr(c) - sqr(b)) / 2.0 * a * c
+    val cosa = (sqr(b) + sqr(c) - sqr(a)) / 2.0 * b * c
+    val cosc = (sqr(a) + sqr(b) - sqr(c)) / 2.0 * a * b
+   return when {
+       (b + c < a) || (a + c < b) || (a + b < c) -> -1
+       (cosa == 0.0) || (cosb == 0.0) || (cosc == 0.0) -> 1
+       (cosa < 0.0) || (cosb < 0.0) || (cosc < 0.0) -> 2
+       else -> 0
+   }
 }
 
 /**
@@ -159,10 +163,6 @@ fun triangleKind(a: Double, b: Double, c: Double): Int = when {
  * Если пересечения нет, вернуть -1.
  */
 fun segmentLength(a: Int, b: Int, c: Int, d: Int): Int = when {
-    ((c <= a) && (b <= d)) -> b - a
-    ((c >= a) && (c <= b) && (b <= d)) -> b - c
-    ((c >= a) && (b >= d)) -> d - c
-    ((c <= a) && (b >= d) && (d >= a)) -> d - a
-    ((b == c) || (a == d)) -> 0
+    (max(a, c) <= min(b, d)) -> (min(b, d) - max(a, c))
     else -> -1
 }
