@@ -1,4 +1,5 @@
 @file:Suppress("UNUSED_PARAMETER", "UNUSED_EXPRESSION")
+
 package lesson2.task1
 
 import lesson1.task1.discriminant
@@ -75,6 +76,7 @@ fun ageDescription(age: Int): String {
         else -> "$age лет"
     }
 }
+
 /**
  * Простая
  *
@@ -146,12 +148,12 @@ fun triangleKind(a: Double, b: Double, c: Double): Int {
     val cosb = (sqr(a) + sqr(c) - sqr(b)) / 2.0 * a * c
     val cosa = (sqr(b) + sqr(c) - sqr(a)) / 2.0 * b * c
     val cosc = (sqr(a) + sqr(b) - sqr(c)) / 2.0 * a * b
-   return when {
-       (b + c < a) || (a + c < b) || (a + b < c) -> -1
-       (cosa == 0.0) || (cosb == 0.0) || (cosc == 0.0) -> 1
-       (cosa < 0.0) || (cosb < 0.0) || (cosc < 0.0) -> 2
-       else -> 0
-   }
+    return when {
+        (b + c < a) || (a + c < b) || (a + b < c) -> -1
+        (cosa == 0.0) || (cosb == 0.0) || (cosc == 0.0) -> 1
+        (cosa < 0.0) || (cosb < 0.0) || (cosc < 0.0) -> 2
+        else -> 0
+    }
 }
 
 /**
