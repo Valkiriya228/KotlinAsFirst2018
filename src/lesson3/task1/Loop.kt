@@ -3,6 +3,7 @@
 package lesson3.task1
 
 import lesson1.task1.sqr
+import java.lang.Math.PI
 import java.lang.Math.pow
 import kotlin.math.abs
 import kotlin.math.max
@@ -106,13 +107,15 @@ fun fib(n: Int): Int {
  * минимальное число k, которое делится и на m и на n без остатка
  */
 fun lcm(m: Int, n: Int): Int {
-    var a = max(m, n)
-    while (a % m != a % n) {
-        a++
+    val k = n * m
+    var n1 = n
+    var m1 = m
+    while (m1 != 0 && n1 != 0) {
+        if (m1 > n1) m1 %= n1
+        else n1 %= m1
     }
-    return a
+    return k / (n1 + m1)
 }
-
 /**
  * Простая
  *
@@ -131,13 +134,7 @@ fun minDivisor(n: Int): Int {
  *
  * * Для заданного числа n > 1 найти максимальный делитель, меньший n
  */
-fun maxDivisor(n: Int): Int {
-    var i = n - 1
-    while (n % i != 0) {
-        i -= 1
-    }
-    return i
-}
+fun maxDivisor(n: Int): Int = n / minDivisor(n)
 
 /**
  * Простая
@@ -217,7 +214,21 @@ fun collatzSteps(x: Int): Int {
  * sin(x) = x - x^3 / 3! + x^5 / 5! - x^7 / 7! + ...
  * Нужную точность считать достигнутой, если очередной член ряда меньше eps по модулю
  */
-fun sin(x: Double, eps: Double): Double = TODO()
+fun sin(x: Double, eps: Double): Double  {
+    val x1 = x % (2 * PI)
+    var end = x1
+    var num = x1
+    var i = 1.0
+    while (true) {
+        num = -num * sqr(x1) / (i + 1) / (i + 2)
+        if (Math.abs(num) < eps)
+            break
+        end += num
+        i += 2
+    }
+    return end
+}
+
 
 /**
  * Средняя
@@ -226,7 +237,7 @@ fun sin(x: Double, eps: Double): Double = TODO()
  * cos(x) = 1 - x^2 / 2! + x^4 / 4! - x^6 / 6! + ...
  * Нужную точность считать достигнутой, если очередной член ряда меньше eps по модулю
  */
-fun cos(x: Double, eps: Double): Double = TODO()
+fun cos(x: Double, eps: Double): Double = sin(x + PI / 2, eps)
 
 /**
  * Средняя
@@ -282,7 +293,7 @@ fun hasDifferentDigits(n: Int): Boolean {
  *
  * Использовать операции со строками в этой задаче запрещается.
  */
-fun squareSequenceDigit(n: Int): Int  {
+fun squareSequenceDigit(n: Int): Int {
     var c = 1
     var k = 0
     var y = 1
