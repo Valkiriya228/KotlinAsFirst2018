@@ -2,7 +2,6 @@
 
 package lesson4.task1
 
-import jdk.nashorn.internal.objects.NativeArray.map
 import lesson1.task1.discriminant
 import lesson1.task1.sqr
 import java.io.File.separator
@@ -128,14 +127,12 @@ fun abs(v: List<Double>): Double = sqrt(v.sumByDouble { it * it })
  */
 fun mean(list: List<Double>): Double {
     val sum = 0.0
-    var k = 0.0
     var x = sum
     for (element in list) {
-        k++
-        x = (x + element)
+        x += element
     }
-    return if (k == 0.0) 0.0
-    else (x / k)
+    return if (x == 0.0) 0.0
+    else x / list.size
 }
 
 /**
@@ -162,11 +159,11 @@ fun center(list: MutableList<Double>): MutableList<Double> {
  * C = a1b1 + a2b2 + ... + aNbN. Произведение пустых векторов считать равным 0.0.
  */
 fun times(a: List<Double>, b: List<Double>): Double {
-    var C = 0.0
+    var c = 0.0
     for (i in 0 until a.size) {
-        C += (a[i] * b[i])
+        c += (a[i] * b[i])
     }
-    return C
+    return c
 }
 
 /**
@@ -218,7 +215,7 @@ fun factorize(n: Int): List<Int> {
             n1 /= i
         } else i++
     }
-    return result.sorted()
+    return result
 }
 
 /**
@@ -241,14 +238,10 @@ fun factorizeToString(n: Int): String =
 fun convert(n: Int, base: Int): List<Int> {
     val result = mutableListOf<Int>()
     var n1 = n
-    if (n1 == 0) {
-        result.add(n)
-    } else {
-        while (n1 != 0) {
-            result.add(n1 % base)
-            n1 /= base
-        }
-    }
+    do {
+        result.add(n1 % base)
+        n1 /= base
+    } while (n1 != 0)
     return result.reversed()
 }
 
@@ -319,17 +312,13 @@ fun decimalFromString(str: String, base: Int): Int {
  */
 fun roman(n: Int): String {
     var result = ""
-    val digits = listOf("M", "CM", "D", "CD", "C", "XC", "L", "XL", "X", "IX", "V", "IV", "I")
-    val numbers = listOf(1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1)
-    var n1 = n
-    for (i in 0 until digits.size) {
-        while (n1 >= numbers[i]) {
-            result += digits[i]
-            n1 -= numbers[i]
-        }
-    }
+    val a =
+            listOf("M" to 1000, "CM" to 900, "D" to 500, "CD" to 400, "C" to 100, "XC" to 90, "L" to 50, "XL" to 40,
+                    "X" to 10, "IX" to 9, "V" to 5, "IV" to 4, "I" to 1)
     return result
 }
+
+
 
 /**
  * Очень сложная
