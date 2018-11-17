@@ -126,13 +126,12 @@ fun abs(v: List<Double>): Double = sqrt(v.sumByDouble { it * it })
  * Рассчитать среднее арифметическое элементов списка list. Вернуть 0.0, если список пуст
  */
 fun mean(list: List<Double>): Double {
-    val sum = 0.0
-    var x = sum
+    var sum = 0.0
     for (element in list) {
-        x += element
+        sum += element
     }
-    return if (x == 0.0) 0.0
-    else x / list.size
+    return if (list.isEmpty()) 0.0
+    else sum / list.size
 }
 
 /**
@@ -312,13 +311,17 @@ fun decimalFromString(str: String, base: Int): Int {
  */
 fun roman(n: Int): String {
     var result = ""
-    val a =
-            listOf("M" to 1000, "CM" to 900, "D" to 500, "CD" to 400, "C" to 100, "XC" to 90, "L" to 50, "XL" to 40,
-                    "X" to 10, "IX" to 9, "V" to 5, "IV" to 4, "I" to 1)
+    var n1 = n
+    val x = listOf("M" to 1000, "CM" to 900, "D" to 500, "CD" to 400, "C" to 100, "XC" to 90, "L" to 50, "XL" to 40,
+            "X" to 10, "IX" to 9, "V" to 5, "IV" to 4, "I" to 1)
+    for (i in 0..12) {
+        while (n1 >= x[i].second) {
+            result += (x[i].first)
+            n1 -= x[i].second
+        }
+    }
     return result
 }
-
-
 
 /**
  * Очень сложная
