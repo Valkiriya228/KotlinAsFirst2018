@@ -3,6 +3,7 @@
 package lesson5.task1
 
 import lesson4.task1.mean
+import java.io.File.separator
 
 /**
  * Пример
@@ -243,7 +244,7 @@ fun whoAreInBoth(a: List<String>, b: List<String>): List<String> = a.toSet().int
  * Например:
  *   canBuildFrom(listOf('a', 'b', 'o'), "baobab") -> true
  */
-fun canBuildFrom(chars: List<Char>, word: String): Boolean = word.toLowerCase().all { chars.toSet().contains(it.toLowerCase()) }
+fun canBuildFrom(chars: List<Char>, word: String): Boolean = word.toLowerCase().all { chars.joinToString(separator = "").toLowerCase().contains(it) }
 
 /**
  * Средняя
