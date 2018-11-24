@@ -3,7 +3,6 @@
 package lesson5.task1
 
 import lesson4.task1.mean
-import org.omg.CORBA.ARG_IN.value
 import java.io.File.separator
 
 /**
@@ -99,8 +98,11 @@ fun buildWordSet(text: List<String>): MutableSet<String> {
  *   ) -> mapOf("Emergency" to "112, 911", "Police" to "02")
  */
 fun mergePhoneBooks(mapA: Map<String, String>, mapB: Map<String, String>): Map<String, String> {
-    val result = (mapA + mapB).toMutableMap()
-    mapA.forEach { if (it.value != result[it.key]) result[it.key] = "${it.value}, ${result[it.key]}" }
+    val result = mapA.toMutableMap()
+    for ((key, value) in mapB) {
+        if (mapA.contains(key) && mapA[key] != value) result[key] = "${mapA[key]}, $value"
+        else result[key] = value
+    }
     return result
 }
 
@@ -235,7 +237,9 @@ fun whoAreInBoth(a: List<String>, b: List<String>): List<String> = a.intersect(b
  * Например:
  *   canBuildFrom(listOf('a', 'b', 'o'), "baobab") -> true
  */
-fun canBuildFrom(chars: List<Char>, word: String): Boolean = chars.map { it.toLowerCase() }.containsAll(word.toLowerCase().toSet())
+fun canBuildFrom(chars: List<Char>, word: String): Boolean =
+        chars.map { it.toLowerCase() }.toSet().containsAll(word.toLowerCase().toSet())
+
 
 /**
  * Средняя
@@ -281,7 +285,6 @@ fun hasAnagrams(words: List<String>): Boolean = words.groupingBy { it.toList().s
  *   findSumOfTwo(listOf(1, 2, 3), 6) -> Pair(-1, -1)
  */
 fun findSumOfTwo(list: List<Int>, number: Int): Pair<Int, Int> = TODO()
-
 /**
  * Очень сложная
  *

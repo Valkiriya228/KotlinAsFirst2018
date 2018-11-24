@@ -2,6 +2,8 @@
 
 package lesson6.task1
 
+import lesson2.task2.daysInMonth
+
 /**
  * Пример
  *
@@ -71,7 +73,17 @@ fun main(args: Array<String>) {
  * Обратите внимание: некорректная с точки зрения календаря дата (например, 30.02.2009) считается неверными
  * входными данными.
  */
-fun dateStrToDigit(str: String): String = TODO()
+fun dateStrToDigit(str: String): String {
+if (!Regex("\\d{1,2} [а-я]+ \\d+").matches(str)) return ""
+val res = str.split(" ")
+val date = res.first().toInt()
+val year = res.last().toInt()
+val months = listOf<String>("января", "февраля", "марта", "апреля", "мая", "июня", "июля", "августа", "сентября", "октября", "ноября", "декабря")
+val month = months.indexOf(res[1]) + 1
+if (month == 0) return ""
+if (date !in 1..daysInMonth(month, year)) return ""
+return String.format("%02d.%02d.%d", date, month, year)
+}
 
 /**
  * Средняя
@@ -83,7 +95,17 @@ fun dateStrToDigit(str: String): String = TODO()
  * Обратите внимание: некорректная с точки зрения календаря дата (например, 30 февраля 2009) считается неверными
  * входными данными.
  */
-fun dateDigitToStr(digital: String): String = TODO()
+fun dateDigitToStr(digital: String): String {
+    if (!Regex("\\d{1,2}.\\d{2}.\\d+").matches(digital)) return ""
+    val res = digital.split(".")
+    val date = res.first().toInt()
+    val year = res.last().toInt()
+    if ((res[1].toInt() > 12) || (res[1].toInt() < 1)) return ""
+    val months = listOf<String>("января", "февраля", "марта", "апреля", "мая", "июня", "июля", "августа", "сентября", "октября", "ноября", "декабря")
+    val month = months[res[1].toInt() - 1]
+    if (date !in 1..daysInMonth(res[1].toInt(), year)) return ""
+    return String.format("%d %s %d", date, month, year)
+}
 
 /**
  * Средняя
@@ -97,8 +119,9 @@ fun dateDigitToStr(digital: String): String = TODO()
  * Все символы в номере, кроме цифр, пробелов и +-(), считать недопустимыми.
  * При неверном формате вернуть пустую строку
  */
-fun flattenPhoneNumber(phone: String): String = TODO()
-
+fun flattenPhoneNumber(phone: String): String =
+if (!Regex("""[\d+()\s-]+""").matches(phone)) ""
+else Regex("""[()\s-]+""").replace(phone, "")
 /**
  * Средняя
  *
@@ -109,7 +132,13 @@ fun flattenPhoneNumber(phone: String): String = TODO()
  * Прочитать строку и вернуть максимальное присутствующее в ней число (717 в примере).
  * При нарушении формата входной строки или при отсутствии в ней чисел, вернуть -1.
  */
-fun bestLongJump(jumps: String): Int = TODO()
+fun bestLongJump(jumps: String): Int {
+    val res = mutableListOf<Int>()
+    if (!Regex("(?=.*\\d)([\\d\\s%-]+)").matches(jumps)) return -1
+    val x = Regex("""[-%]+""").replace(jumps, "")
+    for (element in x.split(Regex("""[\s]+"""))) res.add(element.toInt())
+    return res.max()!!
+}
 
 /**
  * Сложная
