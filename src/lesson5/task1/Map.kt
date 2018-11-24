@@ -284,7 +284,15 @@ fun hasAnagrams(words: List<String>): Boolean = words.groupingBy { it.toList().s
  *   findSumOfTwo(listOf(1, 2, 3), 4) -> Pair(0, 2)
  *   findSumOfTwo(listOf(1, 2, 3), 6) -> Pair(-1, -1)
  */
-fun findSumOfTwo(list: List<Int>, number: Int): Pair<Int, Int> = TODO()
+fun findSumOfTwo(list: List<Int>, number: Int): Pair<Int, Int> {
+    var res: Pair<Int, Int> = -1 to -1
+    val x = mutableMapOf<Int, Int>() // (число, индекс)
+    for (i in 0 until list.size) {
+        if (x[number - list[i]] != null) res = x[number - list[i]]!! to i
+        else x += list[i] to i
+    }
+    return res
+}
 /**
  * Очень сложная
  *
