@@ -3,6 +3,7 @@
 package lesson6.task1
 
 import lesson2.task2.daysInMonth
+import kotlin.math.exp
 
 /**
  * Пример
@@ -51,12 +52,10 @@ fun main(args: Array<String>) {
         val seconds = timeStrToSeconds(line)
         if (seconds == -1) {
             println("Введённая строка $line не соответствует формату ЧЧ:ММ:СС")
-        }
-        else {
+        } else {
             println("Прошло секунд с начала суток: $seconds")
         }
-    }
-    else {
+    } else {
         println("Достигнут <конец файла> в процессе чтения строки. Программа прервана")
     }
 }
@@ -74,15 +73,15 @@ fun main(args: Array<String>) {
  * входными данными.
  */
 fun dateStrToDigit(str: String): String {
-if (!Regex("\\d{1,2} [а-я]+ \\d+").matches(str)) return ""
-val res = str.split(" ")
-val date = res.first().toInt()
-val year = res.last().toInt()
-val months = listOf<String>("января", "февраля", "марта", "апреля", "мая", "июня", "июля", "августа", "сентября", "октября", "ноября", "декабря")
-val month = months.indexOf(res[1]) + 1
-if (month == 0) return ""
-if (date !in 1..daysInMonth(month, year)) return ""
-return String.format("%02d.%02d.%d", date, month, year)
+    if (!Regex("\\d{1,2} [а-я]+ \\d+").matches(str)) return ""
+    val res = str.split(" ")
+    val date = res.first().toInt()
+    val year = res.last().toInt()
+    val months = listOf<String>("января", "февраля", "марта", "апреля", "мая", "июня", "июля", "августа", "сентября", "октября", "ноября", "декабря")
+    val month = months.indexOf(res[1]) + 1
+    if (month == 0) return ""
+    if (date !in 1..daysInMonth(month, year)) return ""
+    return String.format("%02d.%02d.%d", date, month, year)
 }
 
 /**
@@ -120,8 +119,9 @@ fun dateDigitToStr(digital: String): String {
  * При неверном формате вернуть пустую строку
  */
 fun flattenPhoneNumber(phone: String): String =
-if (!Regex("""[\d+()\s-]+""").matches(phone)) ""
-else Regex("""[()\s-]+""").replace(phone, "")
+        if (!Regex("""[\d+()\s-]+""").matches(phone)) ""
+        else Regex("""[()\s-]+""").replace(phone, "")
+
 /**
  * Средняя
  *
@@ -180,7 +180,15 @@ fun plusMinus(expression: String): Int = TODO()
  * Вернуть индекс начала первого повторяющегося слова, или -1, если повторов нет.
  * Пример: "Он пошёл в в школу" => результат 9 (индекс первого 'в')
  */
-fun firstDuplicateIndex(str: String): Int = TODO()
+fun firstDuplicateIndex(str: String): Int {
+    val x = str.toLowerCase().split(" ")
+    var length = 0
+    for (i in 0 until x.size - 1) {
+        if (x[i] == x[i + 1]) return length
+        length += x[i].length + 1
+    }
+    return -1
+}
 
 /**
  * Сложная
