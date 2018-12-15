@@ -3,6 +3,7 @@
 package lesson6.task1
 
 import lesson2.task2.daysInMonth
+import lesson3.task1.revert
 import kotlin.math.exp
 
 /**
@@ -74,14 +75,14 @@ fun main(args: Array<String>) {
  */
 fun dateStrToDigit(str: String): String {
     if (!Regex("\\d{1,2} [а-я]+ \\d+").matches(str)) return ""
-    val res = str.split(" ")
-    val date = res.first().toInt()
-    val year = res.last().toInt()
+    val result = str.split(" ")
+    val day = result.first().toInt()
+    val year = result.last().toInt()
     val months = listOf<String>("января", "февраля", "марта", "апреля", "мая", "июня", "июля", "августа", "сентября", "октября", "ноября", "декабря")
-    val month = months.indexOf(res[1]) + 1
+    val month = months.indexOf(result[1]) + 1
     if (month == 0) return ""
-    if (date !in 1..daysInMonth(month, year)) return ""
-    return String.format("%02d.%02d.%d", date, month, year)
+    if (day !in 1..daysInMonth(month, year)) return ""
+    return String.format("%02d.%02d.%d", day, month, year)
 }
 
 /**
@@ -153,7 +154,7 @@ fun bestLongJump(jumps: String): Int {
 fun bestHighJump(jumps: String): Int {
     val res = mutableListOf<Int>()
     val x = jumps.split(" ")
-    if (!Regex("""[\d%+\s\-]+""").matches(jumps)) return -1
+    if (!Regex("""[\d+\s[+%-]\s]+""").matches(jumps)) return -1
     for (i in 1 until x.size) {
         if (x[i].contains("+")) res.add(x[i - 1].toInt())
     }
@@ -169,7 +170,16 @@ fun bestHighJump(jumps: String): Int {
  * Вернуть значение выражения (6 для примера).
  * Про нарушении формата входной строки бросить исключение IllegalArgumentException
  */
-fun plusMinus(expression: String): Int = TODO()
+fun plusMinus(expression: String): Int {
+    if (!Regex("""(\d+)(\s[+-]\s\d+)*""").matches(expression)) throw IllegalArgumentException(expression)
+    val x = expression.split(" ")
+    var result = x.first().toInt()
+    for (i in 1 until x.size - 1 step 2) {
+        if (x[i].contains("+")) result += x[i + 1].toInt()
+        else result -= x[i + 1].toInt()
+    }
+    return result
+}
 
 /**
  * Сложная
@@ -181,13 +191,18 @@ fun plusMinus(expression: String): Int = TODO()
  * Пример: "Он пошёл в в школу" => результат 9 (индекс первого 'в')
  */
 fun firstDuplicateIndex(str: String): Int {
+    var res = -1
+    var k = 0
     val x = str.toLowerCase().split(" ")
-    var length = 0
-    for (i in 0 until x.size - 1) {
-        if (x[i] == x[i + 1]) return length
-        length += x[i].length + 1
+    for (i in 1 until x.size) {
+        if (x[i] == x[i - 1]) {
+            k += 1
+            res += 1
+            break
+        } else res += x[i - 1].length + 1
     }
-    return -1
+    return if (k > 0) res
+    else -1
 }
 
 /**

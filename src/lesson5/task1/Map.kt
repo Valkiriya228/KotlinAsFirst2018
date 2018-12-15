@@ -100,7 +100,8 @@ fun buildWordSet(text: List<String>): MutableSet<String> {
 fun mergePhoneBooks(mapA: Map<String, String>, mapB: Map<String, String>): Map<String, String> {
     val result = mapA.toMutableMap()
     for ((key, value) in mapB) {
-        if (mapA.contains(key) && mapA[key] != value) result[key] = "${mapA[key]}, $value"
+        val x = mapA[key]
+        if (mapA.contains(key) && x != value) result[key] = "$x, $value"
         else result[key] = value
     }
     return result
@@ -288,11 +289,14 @@ fun findSumOfTwo(list: List<Int>, number: Int): Pair<Int, Int> {
     var res: Pair<Int, Int> = -1 to -1
     val x = mutableMapOf<Int, Int>() // (число, индекс)
     for (i in 0 until list.size) {
-        if (x[number - list[i]] != null) res = x[number - list[i]]!! to i
-        else x += list[i] to i
+        if (x[number - list[i]] != null) {
+            res = x[number - list[i]]!! to i
+            break
+        } else x += list[i] to i
     }
     return res
 }
+
 /**
  * Очень сложная
  *
