@@ -3,7 +3,6 @@
 package lesson6.task1
 
 import lesson2.task2.daysInMonth
-import lesson3.task1.revert
 import kotlin.math.exp
 
 /**
@@ -134,8 +133,8 @@ fun flattenPhoneNumber(phone: String): String =
  * При нарушении формата входной строки или при отсутствии в ней чисел, вернуть -1.
  */
 fun bestLongJump(jumps: String): Int {
-    val res = mutableListOf<Int>()
     if (!Regex("(?=.*\\d)([\\d\\s%-]+)").matches(jumps)) return -1
+    val res = mutableListOf<Int>()
     val x = Regex("""[-%]+""").replace(jumps, "")
     for (element in x.split(Regex("""[\s]+"""))) res.add(element.toInt())
     return res.max()!!
@@ -152,9 +151,9 @@ fun bestLongJump(jumps: String): Int {
  * При нарушении формата входной строки вернуть -1.
  */
 fun bestHighJump(jumps: String): Int {
+    if (!Regex("""[\d+\s[+%-]\s]+""").matches(jumps)) return -1
     val res = mutableListOf<Int>()
     val x = jumps.split(" ")
-    if (!Regex("""[\d+\s[+%-]\s]+""").matches(jumps)) return -1
     for (i in 1 until x.size) {
         if (x[i].contains("+")) res.add(x[i - 1].toInt())
     }
