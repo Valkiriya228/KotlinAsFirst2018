@@ -133,11 +133,11 @@ fun flattenPhoneNumber(phone: String): String =
  * При нарушении формата входной строки или при отсутствии в ней чисел, вернуть -1.
  */
 fun bestLongJump(jumps: String): Int {
-    if (!Regex("""(?=.*\d)[\d\s-%]+""").matches(jumps)) return -1
+    if (!Regex("""[\d\-%\s]+""").matches(jumps)) return -1
+    if (!jumps.contains(Regex("""[\d]"""))) return -1
     val res = mutableListOf<Int>()
     val x = Regex("""[-%]+""").replace(jumps, "")
-    for (element in x.replace(Regex("""\s+"""), " ").split(Regex("""[\s]+""")))
-        res.add(element.toInt())
+    for (element in x.split(Regex("""[\s]+"""))) res.add(element.toInt())
     return res.max()!!
 }
 
@@ -152,13 +152,13 @@ fun bestLongJump(jumps: String): Int {
  * При нарушении формата входной строки вернуть -1.
  */
 fun bestHighJump(jumps: String): Int {
-    if (!Regex("""(\d+\s[+%-]+\s)+""").matches("$jumps ") || !jumps.contains("+")) return -1
-    val res = mutableListOf<Int>()
+    if (!Regex("""[\d%+\s\-]+""").matches(jumps)) return -1
     val x = jumps.split(" ")
-    for (i in 1 until x.size) {
-        if (x[i].contains("+")) res.add(x[i - 1].toInt())
+    var res = -1
+    for (i in 1 until x.size step 2) {
+        if ((x[i].contains("+")) && (x[i - 1] > res.toString())) res = x[i - 1].toInt()
     }
-    return res.max()!!
+    return res
 }
 
 /**
@@ -175,7 +175,7 @@ fun plusMinus(expression: String): Int {
     val x = expression.split(" ")
     var result = x.first().toInt()
     for (i in 1 until x.size - 1 step 2) {
-        if (x[i].contains("+")) result += x[i + 1].toInt()
+        if (x[i] == "+") result += x[i + 1].toInt()
         else result -= x[i + 1].toInt()
     }
     return result
@@ -192,17 +192,13 @@ fun plusMinus(expression: String): Int {
  */
 fun firstDuplicateIndex(str: String): Int {
     var res = -1
-    var k = 0
     val x = str.toLowerCase().split(" ")
-    for (i in 1 until x.size) {
-        if (x[i] == x[i - 1]) {
-            k += 1
-            res += 1
-            break
-        } else res += x[i - 1].length + 1
+    for (i in 0 until x.size - 1) {
+        if (x[i] == x[i + 1]) {
+            return (res + 1)
+        } else res += x[i].length + 1
     }
-    return if (k > 0) res
-    else -1
+    return -1
 }
 
 /**

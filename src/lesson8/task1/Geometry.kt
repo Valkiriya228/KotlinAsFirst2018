@@ -76,8 +76,7 @@ data class Circle(val center: Point, val radius: Double) {
     fun distance(other: Circle): Double {
         val x = (sqrt(sqr(center.x - other.center.x) + sqr(center.y - other.center.y)) -
                 (radius + other.radius))
-        return if (sqrt(sqr(abs(center.x - other.center.x)) + sqr(abs(center.y - other.center.y))) <
-                (radius + other.radius)) 0.0
+        return if (x < 0) 0.0
         else x
     }
 
@@ -127,7 +126,7 @@ class Line private constructor(val b: Double, val angle: Double) {
         require(angle >= 0 && angle < PI) { "Incorrect line angle: $angle" }
     }
 
-    constructor(point: Point, angle: Double): this(point.y * cos(angle) - point.x * sin(angle), angle)
+    constructor(point: Point, angle: Double) : this(point.y * cos(angle) - point.x * sin(angle), angle)
 
     /**
      * Средняя
